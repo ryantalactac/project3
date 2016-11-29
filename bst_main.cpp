@@ -6,15 +6,16 @@
 #include <cassert>
 
 int main() {
-
-	SearchTree<Entry<string, string> > *bst1;
-	SearchTree<Entry<string, string> > *bst2;
+    
+	SearchTree<Entry<string, string>> *bst1;
+	SearchTree<Entry<string, string>> *bst2;
 	Position<Entry<string, string> > p;
 	SLinkedList<Entry<string, string>> *sll1;
 	SLinkedList<Entry<string, string>> *sll2;
 	cout << "==== datafile test ====" << endl;
 
 	bst1 = buildBST_fromDatafile("datafile1.txt");
+    
 	bst2 = buildBST_fromDatafile("datafile2.txt");
 	assert(bst1->size() == 171);
 	assert(bst2->size() == 171);
@@ -37,7 +38,7 @@ int main() {
 	cout << "==== Your own name test ====" << endl;
 
 	// TO DO : you need to search your own first name here
-	string myownFirstName = "put your own first name here" ;
+	string myownFirstName = "Ryan" ;
 
 	sll1 = bst1->findPath(myownFirstName);
 	cout << myownFirstName << ": " << sll1->size() << " steps" << endl;

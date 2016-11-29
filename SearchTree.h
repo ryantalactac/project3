@@ -32,7 +32,7 @@ public:						// public functions
 	SearchTree();					// constructor
 	int size() const; 					// number of entries
 	bool empty() const;					// is the tree empty?
-	Position<E> find(const K& k);				// find entry with key k
+	Position<E> find(const K& k);// find entry with key k
 	SLinkedList<E>*  findPath(const K& k);
 	Position<E> insert(const K& k, const V& x);		// insert (k,x)
 	void erase(const K& k);	// remove key k entry
@@ -117,10 +117,42 @@ Position<E> SearchTree<E>::find(const K& k) {
 // TO DO: implement the finderPath function
 template <typename E>					// find entry with key k
 SLinkedList<E>* SearchTree<E>::findPath(const K& k) {
+    
+    SLinkedList<Entry<string, string>> *sLink = new SLinkedList<Entry<string, string>>;
+    Entry <string, string>  *ent = new Entry<string, string>;
+    Position<E> z = find(k);
+    Position<E> q = root();
+    Position<E> * h;
+    
+    while (!(q.operator*().key() == z.operator*().key())){        //it adds to the list until z it reaches the entry
+        Position<E> l = q.left(), r = q.right();
+        
+        if (sLink->empty()){                             //if empty it will add the root to the linked list
+            ent->setKey(q.operator*().key());
+            ent->setValue(q.operator*().value());
+            sLink->addFront(*ent);
+        }
+        if (q.operator*().key() < z.operator*().key()){              //if the key is greater then the next on the list it will go right
+                                                                    // and add right node to the linked list
+            h = & r;
+            sLink->addFront(h->operator*());
+            ent->setKey(r.operator*().key());
+            ent->setValue(r.operator*().value());
+            q = r;
+        }
+        else if (q.operator*().key() > z.operator*().key()){         //if the key is less then the next on the list it will go left
+                                                                        // and add left node to the linked list
+            h = & l;
+            sLink->addFront(h->operator*());
+            ent->setKey(l.operator*().key());
+            ent->setValue(l.operator*().value());
+            q = l;
+        }
+                    
+    }
+     return sLink;
 	// TO DO: you need to implement a function to return the entries of search path
 	//         OK to create another member function to be called here if needed
-
-  return nullptr;
 }
 
 
